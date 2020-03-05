@@ -137,14 +137,20 @@ void analyzeTemps() {
 	num_tmp_sensors = 48;
 	lowest_temp_id = 0;
 	highest_temp_id = 0;
+
+	int current_temp;
 	
-	for(int i = 1; i < num_tmp_sensors; i++) {
-		if(tempValues[i] < tempValues[lowest_temp_id])
-			lowest_temp_id = i;
-		else if(tempValues[i] < tempValues[lowest_temp_id])
-			highest_temp_id = i;
-		
-		sum += tempValues[i];
+	for(const int& temp : tempValues) {
+		if(temp < 0) {
+			num_tmp_sensors--;
+		} else {
+			if(temp < tempValues[lowest_temp_id])
+				lowest_temp_id = i;
+			else if(temp > tempValues[highest_temp_id])
+				highest_temp_id = i;
+			
+			sum += temp;
+		}
 	}
 
 	averageTemp = sum / num_tmp_sensors;
